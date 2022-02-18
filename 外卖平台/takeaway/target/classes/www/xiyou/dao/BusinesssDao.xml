@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="www.xiyou.dao.BusinesssDao">
+
+    <resultMap type="www.xiyou.entity.Businesss" id="BusinesssMap">
+        <result property="id" column="bid" jdbcType="INTEGER"/>
+        <result property="busname" column="busname" jdbcType="VARCHAR"/>
+        <result property="busaddress" column="busaddress" jdbcType="VARCHAR"/>
+        <result property="busexplain" column="busexplain" jdbcType="VARCHAR"/>
+        <result property="bustell" column="bustell" jdbcType="VARCHAR"/>
+        <result property="busimgid" column="busimgid" jdbcType="INTEGER"/>
+        <result property="image.imageurl" column="imageurl"></result>
+
+        <!--&lt;!&ndash;食物对象&ndash;&gt;-->
+        <!--<result property="food.id" column="fid"></result>-->
+        <!--<result property="food.proprice" column="proprice"></result>-->
+        <!--<result property="food.proname" column="proname"></result>-->
+        <!--<result property="food.image.imageurl" column="imageurl"></result>-->
+
+        <!--食物对象-->
+        <collection property="foods" ofType="www.xiyou.entity.Food">
+            <id property="id" column="fid"></id>
+            <result property="proprice" column="proprice"></result>
+            <result property="proname" column="proname"></result>
+        </collection>
+
+
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="BusinesssMap">
+        SELECT
+            b.id bid,
+			b.busname busname,
+            b.busexplain busexplain,
+			b.busaddress busaddress,
+            b.busimgid busimgid,
+            b.bustell bustell,
+
+            f.id fid,
+            f.proprice proprice,
+            f.proname proname,
+
+			i.imageurl imageurl
+
+        from businesss b,food f,image i
+        where b.id = f.busid
+        and b.busimgid = i.id
+        and b.id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="BusinesssMap">
+        select
+            b.id bid,
+            b.busname busname,
+            b.busaddress busaddress,
+            b.busexplain busexplain,
+            b.bustell bustell,
+            b.busimgid busimgid,
+
+			f.proprice proprice,
+			f.proexplain proexplain,
+
+            i.imageurl imageurl
+        from businesss b,image i,food f
+		where b.busimgid = i.id
+		and f.busid=b.id
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="BusinesssMap">
+        select
+        id bid, busname, busaddress, busexplain, bustell, busimgid
+        from takeaway.businesss
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="busname != null and busname != ''">
+                and busname = #{busname}
+            </if>
+            <if test="busaddress != null and busaddress != ''">
+                and busaddress = #{busaddress}
+            </if>
+            <if test="busexplain != null and busexplain != ''">
+                and busexplain = #{busexplain}
+            </if>
+            <if test="bustell != null and bustell != ''">
+                and bustell = #{bustell}
+            </if>
+            <if test="busimgid != null">
+                and busimgid = #{busimgid}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.businesss(busname, busaddress, busexplain, bustell, busimgid)
+        values (#{busname}, #{busaddress}, #{busexplain}, #{bustell}, #{busimgid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.businesss(busname, busaddress, busexplain, bustell, busimgid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.busname}, #{entity.busaddress}, #{entity.busexplain}, #{entity.bustell}, #{entity.busimgid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.businesss(busname, busaddress, busexplain, bustell, busimgid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.busname}, #{entity.busaddress}, #{entity.busexplain}, #{entity.bustell}, #{entity.busimgid})
+        </foreach>
+        on duplicate key update
+        busname = values(busname) , busaddress = values(busaddress) , busexplain = values(busexplain) , bustell =
+        values(bustell) , busimgid = values(busimgid)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update takeaway.businesss
+        <set>
+            <if test="busname != null and busname != ''">
+                busname = #{busname},
+            </if>
+            <if test="busaddress != null and busaddress != ''">
+                busaddress = #{busaddress},
+            </if>
+            <if test="busexplain != null and busexplain != ''">
+                busexplain = #{busexplain},
+            </if>
+            <if test="bustell != null and bustell != ''">
+                bustell = #{bustell},
+            </if>
+            <if test="busimgid != null">
+                busimgid = #{busimgid},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from takeaway.businesss where id = #{id}
+    </delete>
+
+    <resultMap id="bus" type="www.xiyou.entity.Businesss">
+        <!--bus表-->
+        <result property="id" column="bid" jdbcType="INTEGER"/>
+        <result property="busname" column="busname" jdbcType="VARCHAR"/>
+        <result property="busaddress" column="busaddress" jdbcType="VARCHAR"/>
+        <result property="busexplain" column="busexplain" jdbcType="VARCHAR"/>
+        <result property="bustell" column="bustell" jdbcType="VARCHAR"/>
+        <result property="busimgid" column="busimgid" jdbcType="INTEGER"/>
+
+        <!--food-->
+        <result property="food.id" column="fid"></result>
+        <result property="food.proname" column="proname"></result>
+
+        <!--img-->
+        <result property="food.image.imageurl" column="imageurl"></result>
+    </resultMap>
+
+    <!--queryBusInfoById-->
+    <select id="queryBusInfoById" resultMap="bus">
+        SELECT
+            b.id bid,
+            b.busname busname,
+            b.busaddress busaddress,
+            b.busexplain busexplain,
+            b.bustell bustell,
+            b.busimgid busimgid,
+
+            f.id fid,
+            f.proprice proprice,
+            f.proname proname,
+
+            i.imageurl imageurl
+
+        from businesss b,food f,image i
+        where f.busid = b.id
+        and f.imageid = i.id
+        and f.id = #{id}
+
+    </select>
+
+    <select id="queryCount" resultType="long">
+        select count(id) from businesss
+    </select>
+</mapper>
+

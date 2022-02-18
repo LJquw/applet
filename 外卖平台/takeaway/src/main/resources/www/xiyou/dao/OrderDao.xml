@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="www.xiyou.dao.OrderDao">
+
+    <resultMap type="www.xiyou.entity.Order" id="OrderMap">
+        <result property="id" column="oid" jdbcType="INTEGER"/>
+        <result property="openid" column="openid" jdbcType="VARCHAR"/>
+        <result property="userid" column="userid" jdbcType="VARCHAR"/>
+        <result property="foodname" column="foodname" jdbcType="VARCHAR"/>
+        <result property="makedate" column="makedate" jdbcType="VARCHAR"/>
+        <result property="placedate" column="placedate" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="orderstate" column="orderstate" jdbcType="VARCHAR"/>
+        <result property="usertell" column="usertell" jdbcType="VARCHAR"/>
+        <result property="information" column="information" jdbcType="VARCHAR"/>
+        <result property="busid" column="busid" jdbcType="INTEGER"/>
+        <result property="foodid" column="foodid" jdbcType="INTEGER"/>
+
+        <!--商家信息-->
+        <result property="businesss.busname" column="busname"></result>
+        <result property="businesss.busaddress" column="busaddress"></result>
+        <result property="businesss.bustell" column="bustell"></result>
+
+        <result property="food.proname" column="proname"></result>
+
+        <!--图片信息-->
+        <result property="food.image.imageurl" column="imageurl"></result>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderMap">
+        select
+          id, openid, userid, foodname, makedate, placedate, username, orderstate, usertell, information, busid, foodid
+        from takeaway.order
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderMap">
+        select
+          id, openid, userid, foodname, makedate, placedate, username, orderstate, usertell, information, busid, foodid
+        from takeaway.order
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderMap">
+        SELECT
+            o.id oid,
+            o.openid openid,
+            o.userid userid,
+            o.foodname foodname,
+            o.makedate makedate,
+            o.placedate placedate,
+            o.username username,
+            o.orderstate orderstate,
+            o.usertell usertell,
+            o.information information,
+            o.busid busid,
+            o.foodid foodid,
+
+            b.busname busname,
+            b.busaddress busaddress,
+            b.bustell bustell,
+
+            f.proname proname,
+
+            i.imageurl imageurl
+
+        FROM `order` o,businesss b,food f,image i
+        where o.busid = b.id
+        and o.foodid = f.id
+        and f.imageid = i.id
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="openid != null and openid != ''">
+            and openid = #{openid}
+        </if>
+        <if test="userid != null and userid != ''">
+            and userid = #{userid}
+        </if>
+        <if test="foodname != null and foodname != ''">
+            and foodname = #{foodname}
+        </if>
+        <if test="makedate != null and makedate != ''">
+            and makedate = #{makedate}
+        </if>
+        <if test="placedate != null and placedate != ''">
+            and placedate = #{placedate}
+        </if>
+        <if test="username != null and username != ''">
+            and username = #{username}
+        </if>
+        <if test="orderstate != null and orderstate != ''">
+            and orderstate = #{orderstate}
+        </if>
+        <if test="usertell != null and usertell != ''">
+            and usertell = #{usertell}
+        </if>
+        <if test="information != null and information != ''">
+            and information = #{information}
+        </if>
+        <if test="busid != null">
+            and busid = #{busid}
+        </if>
+        <if test="foodid != null">
+            and foodid = #{foodid}
+        </if>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.order(openid, userid, foodname, makedate, placedate, username, orderstate, usertell, information, busid, foodid)
+        values (#{openid}, #{userid}, #{foodname}, #{makedate}, #{placedate}, #{username}, #{orderstate}, #{usertell}, #{information}, #{busid}, #{foodid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.order(openid, userid, foodname, makedate, placedate, username, orderstate, usertell, information,
+        busid, foodid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.openid}, #{entity.userid}, #{entity.foodname}, #{entity.makedate}, #{entity.placedate}, #{entity.username},
+            #{entity.orderstate}, #{entity.usertell}, #{entity.information}, #{entity.busid}, #{entity.foodid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.order(openid, userid, foodname, makedate, placedate, username, orderstate, usertell, information,
+        busid,foodid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.openid}, #{entity.userid}, #{entity.foodname}, #{entity.makedate}, #{entity.placedate} #{entity.username},
+            #{entity.orderstate}, #{entity.usertell}, #{entity.information}, #{entity.busid}, #{entity.foodid})
+        </foreach>
+        on duplicate key update
+        openid = values(openid) , userid = values(userid) , foodname = values(foodname) , makedate = values(makedate) ,
+        placedate = values(placedate) ,username = values(username) , orderstate = values(orderstate) , usertell = values(usertell) , information =
+        values(information) , busid = values(busid) , foodid = values(foodid)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update takeaway.order
+        <set>
+            <if test="openid != null and openid != ''">
+                openid = #{openid},
+            </if>
+            <if test="userid != null and userid != ''">
+                userid = #{userid},
+            </if>
+            <if test="foodname != null and foodname != ''">
+                foodname = #{foodname},
+            </if>
+            <if test="makedate != null and makedate != ''">
+                makedate = #{makedate},
+            </if>
+            <if test="placedate != null and placedate != ''">
+                placedate = #{placedate},
+            </if>
+            <if test="username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test="orderstate != null and orderstate != ''">
+                orderstate = #{orderstate},
+            </if>
+            <if test="usertell != null and usertell != ''">
+                usertell = #{usertell},
+            </if>
+            <if test="information != null and information != ''">
+                information = #{information},
+            </if>
+            <if test="busid != null">
+                busid = #{busid},
+            </if>
+            <if test="foodid != null">
+                busid = #{foodid},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from takeaway.order where id = #{id}
+    </delete>
+
+    <!--queryOrderByOrderstate-->
+    <select id="queryOrderByOrderstate" resultType="www.xiyou.entity.Order">
+        select * from `order` where orderstate = #{orderstate}
+    </select>
+
+</mapper>
+

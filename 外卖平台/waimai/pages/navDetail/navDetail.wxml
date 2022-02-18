@@ -1,0 +1,44 @@
+<view class="topTitle">
+  <form bindsubmit="submit">
+      <view class="searchform">
+        <input name="keyword" placeholder="搜索{{typeTitle}}产品"></input>
+        <view>
+          <button form-type="submit" style="width:100%">查询</button>
+        </view>
+      </view>
+  </form>
+
+</view>
+<scroll-view scroll-y="true" style="height: 100%;" bindscrolltolower="lower">
+
+  <view class="proInfos">
+      <block wx:for="{{dataList}}" wx:key="*this">
+        <!-- 单个产品【推荐】 -->
+        <view class="product" bindtap="proDetail" data-proid="{{item.id}}">
+          <!-- 产品图片 -->
+          <image src="{{urlImage+item.image.imageurl}}"></image>
+          <view class="info">
+            <view class="info-t">
+            <!-- 左 -->
+              <view >
+                <view class="proname" style="font-size:36rpx;font-weight:bold">{{item.proname}}</view>
+                <view style="font-size:36rpx;color:orange;margin-top:20rpx">价格￥{{item.proprice}}</view>
+              </view>
+              <!-- 右 -->
+              <view class="yueyu" catchtap="orderTap" data-id="{{item.id}}">购买</view>
+            </view>
+
+            <view class="proInfo" style="font-size:26rpx;color:#999;margin-top:10rpx">{{item.proexplain}}</view>
+          </view>
+        
+        </view>
+      </block>
+
+  <block wx:if="{{isDate}}">
+      <view class="loadMore">正在加载中...</view>
+    </block>
+    <block wx:else>
+      <view class="loadMore">我也是有底线的</view>
+    </block>
+  </view>
+</scroll-view>

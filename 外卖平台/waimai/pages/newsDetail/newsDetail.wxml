@@ -1,0 +1,13 @@
+<view class="wapper">
+  <!-- 图片部分 -->
+  <image class="newsImage" src="{{imageUrl+newsInfo.businesss.image.imageurl}}"></image>
+  <view class="newsName">{{newsInfo.businesss.busname}}</view>
+  <view class="newsName2">联系电话：<text style="color:orange">{{newsInfo.businesss.bustell}}</text></view>
+
+  <image class="newsImage2" src="{{imageUrl+newsInfo.image.imageurl}}"></image>
+  
+  <view class="newsinfo">【活动详情】</view>
+  <view class="newsexplain">{{newsInfo.adexplain}}</view>
+
+  <button style="width:90%;background-color:orange" bindtap="yuding" data-id="{{newsInfo.id}}">立即购买</button>
+</view>

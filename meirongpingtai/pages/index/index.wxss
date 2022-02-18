@@ -1,0 +1,136 @@
+/**index.wxss**/
+.container {
+  height: 100%;
+  /* 弹性布局 */
+  display: flex;
+  flex-direction: column;
+  /* 以轴侧居中排列 */
+  align-items: center;
+  /* 按照左右或者上下排列 */
+  justify-content: space-between;
+  box-sizing: border-box;
+  /* 设置字体 */
+  font-family: '微软雅黑';
+} 
+
+/* 轮播图的样式 */
+.swiper{
+  width: 100%;
+  /* height: 200%; */
+  margin: 0px;
+}
+.swiper image{
+  display: inline;
+}
+
+/* 导航栏样式 */
+.nav_top{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20rpx 10rpx;
+  color: white;
+}
+
+.nav_top_items{
+  text-align: center;
+  font-size: 28rpx;
+  width: 100rpx;
+  /* 剪切圆 */
+  border-radius: 8rpx;
+  box-sizing: border-box;
+}
+.nav_top_items image{
+  width: 83rpx;
+  height: 93rpx;
+  display: inline-block;
+}
+
+.nav_top .active_{
+  color: #38b337;
+}
+.nav_top .active_red{
+  color: #e5004f;
+}
+.nav_top .active_orange{
+  color: orange;
+}
+.nav_top .active_yellow{
+  color: yellow;
+}
+.nav_top .active_green{
+  color: rgb(50,238,50);
+}
+.nav_top .active_purple{
+  color: rgb(121,23,121);
+}
+
+/* 导航栏对应的的内容样式 */
+.nav_section{
+  width: 100%
+}
+.nav_section_items{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 30rpx;
+  border-bottom: 2rpx solid #ddd;
+}
+.nav_section_items .section_image{
+  width: 240rpx;
+  height: 158rpx;
+}
+/* 导航栏对应的内容的左侧图像 */
+.nav_section_items .section_image image{
+  width: 100%;
+  height: 100%;
+}
+
+/* 文字内容的样式 */
+.nav_section_items .section_content{
+  width: 400rpx;
+  font-size: 26rpx;
+  color: #a9a9a9;
+}
+
+.nav_section_items .section_content view{
+  overflow: hidden;
+  /* 文字不跨行处理 */
+  white-space: nowrap;
+  /* 文字如果有溢出，做缺省处理 */
+  text-overflow: ellipsis;
+  display: block;
+}
+
+/* 处理文字主题的大小 */
+.nav_section_items .section_content .section_content_sub{
+  font-size: 25rpx;
+  color: #000;
+  line-height: 60rpx;
+  margin-top: 30rpx;
+}
+
+/* 处理文字价格的样式 */
+.nav_section_items .section_content .section_content_price{
+  font-size: 32rpx;
+  color: #d24a58;
+}
+
+/* 处理文字预约的样式 */
+.nav_section_items .section_content .section_book{
+  width: 82rpx;
+  height: 82rpx;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  font-size: 27rpx;
+  font-weight: 900;
+  text-align: center;
+  line-height: 80rpx;
+  position: absolute;
+  right: 15rpx;
+  top: 40rpx;
+}

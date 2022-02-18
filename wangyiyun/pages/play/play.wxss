@@ -1,0 +1,145 @@
+/* pages/play/play.wxss */
+.content{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: black;
+}
+
+/* 调节背景图片 */
+.bg_img{
+  width: 100%;
+  height: 100%;
+  opacity: 0.3;
+}
+
+/* 歌曲的名称的样式 */
+.songName{
+  width: 100%;
+  font-size: 38rpx;
+  position: absolute;
+  left: 0rpx;
+  top: 80rpx;
+  color: white;
+  text-align: center;
+}
+.middle{
+  width: 100%;
+  height: 800rpx;
+  position: absolute;
+  left: 10rpx;
+  top: 160rpx;
+}
+
+/* 控制唱片封面旋转 */
+/* 存放歌曲封面的view */
+.image-container{
+  width: 600rpx;
+  height: 600rpx;
+  margin: 50rpx auto;
+  background: black;
+  border-radius: 50%;
+  margin-left: 45rpx;
+}
+.image-container image{
+  width: 230px;
+  height: 230px;
+  border-radius: 50%;
+  border: black solid 50rpx;
+  animation: zhuan 4s linear infinite;
+  margin-right: 25rpx;
+}
+
+/* 动画帧执行的过程 */
+@keyframes zhuan{
+  from{
+    transform: rotate(0deg);
+  }to{
+    transform: rotate(360deg);
+  }
+}
+
+/* 进度条样式 */
+.progess{
+  position: absolute;
+  width: 100%;
+  height: 100rpx;
+  bottom: 140rpx;
+  display: flex;  /* 保证当前进度时间 进度条 结束时间在同一行 */
+}
+/* 当前进度时间 结束时间的样式 */
+.play_time,.end_time{
+  width: 15%;
+  height: 100rpx;
+  color: white;
+  line-height: 100rpx;
+  margin-top: -12rpx;
+}
+/* 进度条的样式 */
+.progess slider{
+  width: 70%;
+  height: 100rpx;
+}
+
+/* 控制歌词的样式 */
+.lyric-container{
+  width: 80%;
+  height: 100%;
+  margin: 0 auto;
+}
+.lyric-content{
+  width: 100%;
+}
+.lyric-content .currentLyric{
+  color: red;
+}
+.lyric-content text{
+  color: white;
+  opacity: 0.6;
+  display: block;
+  text-align: center;
+  line-height: 50rpx;
+  font-size: 35rpx;
+}
+
+.mylike{
+  width: 200rpx;
+  height: 80rpx;
+  position: absolute;
+  bottom: 220rpx;
+  right: 20rpx;
+  display: flex;
+}
+.mylike .like_font{
+  display: block;
+  font-size: 30rpx;
+  color: pink;
+  text-align: left;
+}
+.mylike image{
+  width: 60rpx;
+  height: 60rpx;
+
+}
+
+/* 控制按钮样式 */
+.controls{
+  width: 100%;
+  height: 150rpx;
+  position: absolute;
+  bottom: 0rpx;
+  background-color: #cd3471;
+}
+/* 控制按钮图片的样式 */
+.controls image{
+  width: 120rpx;
+  height: 120rpx;
+  margin-top: 15rpx;
+  margin-left: 100rpx;
+}
+
+
+
+

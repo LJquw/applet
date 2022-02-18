@@ -1,0 +1,78 @@
+/* pages/my/my.wxss */
+.header{
+  width: 100rpx;
+  height: 100rpx;
+  
+}
+.top{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50rpx 20rpx;
+  border-top: 1rpx solid #999;
+}
+.nickName{
+  font-weight: bold;
+  font-size: 40rpx;
+}
+.login{
+  font-size: 34rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+/*  */
+.navTab{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.curTab{
+  border-bottom: 1px solid #999;
+}
+/* 内部 */
+.orderInfo{
+  padding: 0 20rpx;
+  flex: 2;
+}
+.order{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 40rpx;
+}
+.proImage{
+  flex: 1;
+  height: 200rpx;
+}
+
+
+/*  */
+.navTab1{
+  display: flex;
+  justify-content: space-between;
+  padding: 30rpx;
+}
+.currentTab1{
+  border-bottom: 1px solid #999;
+}
+
+.address{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  width: 400rpx;
+  font-size: 15px;
+}
+.address1{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  width: 400rpx;
+  color: #999;
+  font-size: 14px;
+}

@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/songList/songList",
+    "pages/play/play",
+    "pages/logs/index",
+    "pages/my/my",
+    "pages/info/info"
+  ],
+  "window": {
+    "navigationBarTitleText": "网易云音乐",
+    "navigationBarBackgroundColor": "#cd3471",
+    "backgroundColorBottom": "#aa2cc7"
+  },
+  "tabBar": {
+    "color": "#ddd333",
+    "backgroundColor": "#Fcd345",
+    "selectedColor": "#bcd234",
+    "position": "bottom",
+    "list": [
+      {
+        
+        "pagePath": "pages/songList/songList",
+        "text": "首页",
+        "iconPath": "/images/time.png",
+        "selectedIconPath": "images/user_icon.png"
+      },
+      {
+        "pagePath": "pages/logs/index",
+        "text": "日志",
+        "iconPath": "/images/user_icon_HL.png",
+        "selectedIconPath": "images/time.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我自己",
+        "iconPath": "images/user_icon.png",
+        "selectedIconPath": "images/user_icon.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true,
+  "sitemapLocation": "sitemap.json"
+}

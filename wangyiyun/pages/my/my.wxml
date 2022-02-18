@@ -1,0 +1,67 @@
+
+<view class="content">
+  <!-- 背景图片和屏幕一样大 -->
+  <image class="bg_img" src="{{song.album.picUrl}}"></image>
+ <!-- 歌曲的名称 -->
+ <view class="songName">{{song.name}}</view>
+ <swiper class="middle">
+    <!-- 存放歌曲的封面 -->
+    <swiper-item>
+       <!-- 旋转的封面 -->
+       <view class="image-container">
+         <!-- animate控制图像的动画是否执行 -->
+         <image src="{{song.album.picUrl}}" style="animation-play-state:{{state=='play'?'running':'paused'}}"></image>
+
+       </view>
+    </swiper-item>
+
+    <!-- 歌词区域 -->
+    <swiper-item>
+      <!-- 通过组件进行歌词的滚动 -->
+       <scroll-view scroll-x ="true" scroll-y ="true" scroll-top="{{marinTop}}" class="lyric-container">
+           <view class="lyric-content">
+            <text wx:for="{{lyricArray}}" class="{{currentIndex==i?'currentLyric':''}}" wx:for-item="lyric" wx:for-index="i">
+               {{lyric[1]}}
+            </text>
+
+           </view>
+
+       </scroll-view>
+
+    </swiper-item>
+
+ </swiper>
+ <!-- 歌曲进度条的功能 -->
+<!-- 如果总时长不为0的时候，才有进度条 -->
+ <view class="progess" wx:if="{{duration!=0}}">
+           <!-- 进度条播放的进度 -->
+           <view class="play_time">{{playTime}}</view>               
+                <!-- bindchange 进度条改变的事件 -->
+                <slider bindchange="dragSilder" value="{{move}}" min="0" max="{{duration}}" step="5" block-size = "14" activeColor="#cd12ac" > </slider>
+           <!-- 总时长 -->
+           <view class="end_time">{{endTime}}</view>
+  </view>
+
+
+  <!-- 控制栏按钮 -->
+ <view class="controls">
+   <!-- 
+     state == "play" 播放的状态 就显示pause.png
+     state != "play" 暂停状态 显示play.png
+     通过三元运算来确定是哪个播放按钮-->
+     <!-- 
+        1 实现播放按钮图片的切换 在play 和pause图片之间进行切换
+        2 实现歌曲的暂停与播放
+        3 实现上一首和下一首歌曲切换
+      -->
+
+  <image src="/images/prev.png" bindtap="prev"></image>
+  <image  src="/images/{{state=='play'?'pause':'play'}}.png" bindtap="pauseOrplay"></image>
+  <image src="/images/next.png" bindtap="next"></image>
+
+ </view>
+
+
+</view>
+
+

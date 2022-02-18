@@ -1,0 +1,66 @@
+/* pages/order/order.wxss */
+page{
+  height: 100%;
+}
+.proImage{
+  width: 100%;
+  height: 40%;
+}
+.yuding{
+  padding: 20rpx 50rpx;
+}
+
+/* 公共开始 */
+.fontBold{
+  font-weight: bold;
+  padding: 20rpx;
+  font-size: 36rpx;
+}
+.ml10{
+  margin-left: 10rpx;
+}
+.mt40{
+  margin-top: 40rpx;
+}
+.fontbold{
+  font-weight: bold;
+}
+/* 公共结束 */
+/* 日期部分 */
+.dataImage{
+  width: 50rpx;
+  height: 50rpx;
+}
+.dataWapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  padding: 0 20rpx;
+}
+.section{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+.timesection{
+  margin-left: 40rpx;
+}
+
+
+picker{
+  border: 1px solid #999;
+  padding: 5rpx 10rpx;
+  border-radius: 5rpx;
+  width: 220rpx;
+}
+input{
+  border:1px solid #999;
+  margin: 10rpx 0;
+  border-radius: 10rpx;
+  font-size: 36rpx;
+  height: 60rpx;
+  padding: 0 20rpx;
+}

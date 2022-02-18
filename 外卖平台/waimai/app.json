@@ -1,0 +1,56 @@
+{
+  "pages":[
+    "pages/start/start",
+    "pages/shopDetail/shopDetail",
+    "pages/register/register",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/navDetail/navDetail",
+    "pages/my/my",
+    "pages/detail/detail",
+    "pages/order/order",
+    "pages/shop/shop",
+    "pages/logs/logs",
+    "pages/news/news",
+    "pages/newsDetail/newsDetail",
+    "pages/newsorder/newsorder"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "外卖平台",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath":"/img/index_icon.png",
+        "selectedIconPath":"/img/index_icon_HL.png"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "text": "店家",
+        "iconPath":"/img/shop_icon.png",
+        "selectedIconPath":"/img/shop_icon_HL.png"
+      }
+      ,
+      {
+        "pagePath": "pages/news/news",
+        "text": "消息",
+        "iconPath":"/img/news_icon.png",
+        "selectedIconPath":"/img/news_icon_HL.png"
+      }
+      ,
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath":"/img/user_icon.png",
+        "selectedIconPath":"/img/user_icon_HL.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

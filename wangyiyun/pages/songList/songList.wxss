@@ -1,0 +1,97 @@
+/* pages/songList/songList.wxss */
+.imageContainer{
+  width: 100%;
+  height: 300rpx;
+}
+.imageContainer image{
+  width: 100%;
+  height: 100%;
+}
+
+/* 搜索框样式 */
+.searchArea{
+  width: 100%;
+  display: flex;
+  /* flex是弹性盒子，可以让<view>在同一行显示 */
+  margin-top: 6rpx;
+}
+.searchLeft{
+  width: 636rpx;
+  height: 90rpx;
+}
+.searchLeft input{
+  width: 636rpx;
+  height: 80rpx;
+  border: #ff5384 solid 1rpx;
+  border-radius: 3px;
+}
+.searchRight{
+  width: 90rpx;
+  height: 80rpx;
+  background: rgb(126, 127, 187);
+}
+.searchRight image{
+  width: 85rpx;
+  height: 82rpx;
+  border: #ff5384 solid 1rpx;
+  border-left: none;
+}
+
+/* 歌单的样式 */
+.musicContainer{
+  width: 100%;
+  height: 152rpx;
+  background: blueviolet;
+  margin-top: 5rpx;
+  display: flex;
+}
+.musicLeft{
+  width: 150rpx;
+  height: 100%;
+}
+/* 音乐歌单的左侧图标样式 */
+.musicLeft image{
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+}
+/* 歌单文字信息样式 */
+.musicCenter{
+  width: 520rpx;
+  height: 100%;
+  background: rgb(27, 235, 138);
+  color: white;
+}
+/* 歌曲名字信息 */
+.musicCenter .songName{
+  font-size: 36rpx;
+  color: white;
+  padding-left: 20rpx;
+  margin-top: 5rpx;
+}
+/* 歌手名字信息 */
+.musicCenter .singerName{
+  font-size: 30rpx;
+  color: gray;
+  padding-left: 20rpx;
+  margin-top: 5rpx;
+}
+/* 专辑名字信息 */
+.musicCenter .singerAlbum{
+  font-size: 30rpx;
+  color: gray;
+  padding-left: 20rpx;
+  color: rgb(107,102,107);
+}
+
+/* 歌单播放按钮样式 */
+.musicRight{
+  width: 100rpx;
+  height: 100%;
+  background: darkgray;
+}
+.musicRight image{
+  width: 88rpx;
+  height: 88rpx;
+  margin-top: 30rpx;
+}

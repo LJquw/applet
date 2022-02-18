@@ -1,0 +1,37 @@
+<!-- 头部项目图片 -->
+<image class="proImage" src="{{imageUrl+proinfo.food.image.imageurl}}"></image>
+
+<!-- 预定信息 -->
+<view class="yuding">
+  <view class="fontBold">店家名称：<text style="color:orange">{{proinfo.busname}}</text></view>
+  <view class="fontBold">产品名称：<text style="color:orange">{{proinfo.food.proname}}</text></view>
+  <view class="fontBold">商家地址：<text style="color:orange;font-size:30rpx">{{proinfo.busaddress}}</text></view>
+  <!-- 选择日期 -->
+  <view class="dataWapper,mt40">
+    <!-- 时间 -->
+    <view class="section">预定到达时间：</view>
+    <view class="section,timesection">
+      <image class="dataImage" src="/img/time.png"></image>
+      <picker class="ml10" mode="time" value="{{curentTime}}" start="7:00" end="22:00" bindchange="bindTimeChange">
+        <view class="picker">{{curentTime}}</view>
+      </picker>
+    </view>
+  </view>
+
+  <form bindsubmit="submit">
+    <view class="mt40,fontbold">联系人姓名：</view>
+    <input name="username" placeholder="请输入姓名"></input>
+    <view class="fontbold">手机号：</view>
+    <input type="number" name="usertell" placeholder="请输入电话"></input>
+    <view class="fontbold">备注：</view>
+    <input name="information" placeholder="请输入留言"></input>
+
+    <button form-type="submit" style="width:100%;background-color:orange;color:#fff;margin:30rpx 0">确认购买</button>
+  </form>
+  
+
+
+   <!-- 最外层 -->
+</view>
+
+

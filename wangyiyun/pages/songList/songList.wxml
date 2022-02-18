@@ -1,0 +1,104 @@
+<!--轮播图-->
+<swiper class="imageContainer" indicator-dots="true" indicator-active-color="purple"
+        autoplay="true" interval="1000" duration="500" circular = "true">
+        <block wx:for="{{imgUrls}}" wx:key="*this">
+          <swiper-item>
+             <image src="{{item}}"></image>
+          </swiper-item>
+        </block>
+</swiper>
+<!-- 搜索框 -->
+<view class="searchArea">
+  <!-- 输入框 -->
+  <view class="searchLeft">
+     <input type="text" bindinput="inputKeyWord"></input>
+
+  </view>
+   <!-- 按钮 -->
+  <view class="searchRight">
+     <image bindtap="doSearch" src="/images/search.png"></image>
+
+  </view>
+</view>
+<!-- 模拟搜索出的歌单信息 -->
+<view class="musicContainer">
+   <!--歌曲的封面  -->
+   <view class="musicLeft">
+     <image src="/images/1.jpg"></image>
+   </view>
+   <!-- 歌曲的信息 -->
+   <view class="musicCenter">
+       <view class="songName">大风吹</view>
+       <view class="singerName">王赫野</view>
+
+   </view>
+
+   <!-- 歌曲的播放按钮 -->
+   <view class="musicRight">
+        <image src="/images/more.png"></image>
+   </view>
+
+</view>
+
+
+<!-- 模拟搜索出的歌单信息 -->
+<view class="musicContainer">
+   <!--歌曲的封面  -->
+   <view class="musicLeft">
+     <image src="/images/2.jpg"></image>
+   </view>
+   <!-- 歌曲的信息 -->
+   <view class="musicCenter">
+       <view class="songName">五环之歌</view>
+       <view class="singerName">岳云鹏</view>
+
+   </view>
+
+   <!-- 歌曲的播放按钮 -->
+   <view class="musicRight">
+        <image src="/images/more.png"></image>
+   </view>
+
+</view>
+
+<!-- 模拟搜索出的歌单信息 -->
+<view class="musicContainer">
+   <!--歌曲的封面  -->
+   <view class="musicLeft">
+     <image src="/images/3.jpg"></image>
+   </view>
+   <!-- 歌曲的信息 -->
+   <view class="musicCenter">
+       <view class="songName">演员</view>
+       <view class="singerName">薛之谦</view>
+   </view>
+   <!-- 歌曲的播放按钮 -->
+   <view class="musicRight">
+        <image src="/images/more.png"></image>
+   </view>
+</view>
+
+<!-- 遍历songs 显示二十条歌曲信息 -->
+<block wx:for="{{songs}}" wx:for-item="song" wx:for-index="i">
+   <!-- 模拟搜索出的歌单信息 -->
+   <view class="musicContainer">
+      <!--歌曲的封面  -->
+      <view class="musicLeft">
+      <image src="/images/{{i+1}}.jpg"></image>
+      </view>
+      <!-- 歌曲的信息 -->
+      <view class="musicCenter">
+         <view class="songName">{{song.name}}</view>
+         <view class="singerName">{{song.artists[0].name}}</view>
+         <view class="singerAlbum">{{song.album.name}}</view>
+      </view>
+      <!-- 歌曲的播放按钮 -->
+      <view class="musicRight">
+      <!-- data- -->
+         <image bindtap="gotoPlay" src="/images/more.png" data-id="{{song.id}}"></image>
+      </view>
+      <!-- 当点击播放按钮时，跳转到播放页面，进行播放歌曲 -->
+      <!-- 播放页面 有一个旋转的动画 -->
+
+   </view>
+</block>

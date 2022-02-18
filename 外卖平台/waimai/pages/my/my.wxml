@@ -1,0 +1,43 @@
+<view class="top">
+  <view class="info">
+    <view class="nickName">{{userInfo.nickName}}</view>
+
+    <block wx:if="{{isLogin}}">
+      <view class="login">在线</view>
+    </block>
+    <block wx:else>
+      <view class="login">
+        未登录  <text bindtap="regView" style="color:blue">创建账号?</text>
+        <text bindtap="loginView" style="color:blue">直接登录?</text>
+      </view>
+    </block>
+
+  </view>
+  <image class="header" src="{{userInfo.avatarUrl}}"></image>
+</view>
+
+
+<view class="navTab1">
+  <!-- 不是所有的view都以偶class=currentTab1的属性，选中之后才有 -->
+  <view bindtap="curTab1" data-idx="{{index}}" wx:key="index" class="{{currentTab==index?'currentTab1':''}}" wx:for="{{navTab}}">
+    <text>{{item}}</text>
+  </view>
+</view>
+
+
+<view class="orderInfo">
+  <block wx:for="{{sendList}}" wx:key="*.this">
+      <view class="order">
+        <image class="proImage" src="{{imageUrl+item.food.image.imageurl}}"></image>
+        <view class="orderInfo">
+          <view style="color:orange;font-weight:bold">{{item.businesss.busname}}</view>
+          <view class="address">{{item.food.proname}}</view>
+          <view class="address1">{{item.businesss.busaddress}}</view>
+          <view style="font-size: 13px;font-weight: bold">{{item.businesss.bustell}}</view>
+        </view>
+      </view>
+  </block>
+  
+</view>
+
+

@@ -1,0 +1,19 @@
+<view class="wapper">
+  <!-- 图片部分 -->
+  <image class="shopImage" src="{{imageUrl+shopInfo.image.imageurl}}"></image>
+  <view class="shopName">{{shopInfo.busname}}</view>
+  <view class="busexplain">{{shopInfo.busexplain}}</view>
+
+  <view style="margin-top:40rpx">【菜单】</view>
+
+  <block wx:for="{{shopInfo.foods}}">
+    <view class="pro">
+     <view class="proInfo">
+      <view>{{item.proname}}</view>
+      <view>{{item.proprice}}</view>
+     </view>
+     <view class="btn" bindtap="order" data-id="{{item.id}}">购买</view>
+    </view>
+  </block>
+
+</view>

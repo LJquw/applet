@@ -1,0 +1,62 @@
+<!-- <audio src="https://music.163.com/song/media/outer/url?id={{songid}}" action="{{action}}"></audio> -->
+
+<view class="content">
+  <image class="bg_img" src="{{song.album.picUrl}}"></image>
+  <!-- 加一个歌曲的名称 -->
+  <view class="songName">{{song.name}}</view>
+  <swiper class="middle">
+    <!-- 存放歌曲的封面 -->
+    <swiper-item>
+      <!-- 旋转的封面 -->
+      <view class="image-container">
+      <!-- animate控制图像的动画是否执行 -->
+        
+        <image src="{{song.album.picUrl}}" style="animation-play-state:{{state=='play'?'Running':'paused'}}"></image>
+      </view>
+    </swiper-item>
+    <!-- 歌词区域 -->
+    <swiper-item>
+      <!-- 通过组件进行歌词的滚动 -->
+      <scroll-view scroll-x="true" scroll-y="true" scroll-top="500" scroll-top="{{marinTop}}" class="lyric-container">
+        <view class="lyric-content">
+          <text wx:for="{{lyricArray}}" wx:for-item="lyric" wx:for-index="i" class="{{currentIndex==i?'currentLyric':''}}">
+            {{lyric[1]}}
+          </text>
+        </view>
+      </scroll-view>
+    </swiper-item>
+  </swiper>
+
+  <!-- 歌曲进度条功能 -->
+  <!-- 如果总时长不为0的时候，才有进度条 -->
+  <view class="progess" wx:if="{{duration!=0}}">
+      <!-- 进度条播放的进度 -->
+      <view class="play_time">{{playTime}}</view>
+      <!-- bindchange 进度条改变的事件-->
+      <slider bindchange="dragSlider" value="{{move}}" min="0" max="{{duration}}" step="5" block-size="14" activeColor="#Fa0c0c"/>
+      <!-- 总时长 -->
+      <view class="end_time">{{endTime}}</view>
+  </view>
+
+  <!-- 收藏的图标 -->
+  <view class="mylike">
+  <text class="like_font" wx:if="{{islike}}">已收藏</text>
+    <image src="/images/liked.png" bindtap="likeAction"></image>
+  </view>
+
+  <!-- 控制栏按钮 -->
+  <view class="controls">
+    <!-- 
+      state=="play" 播放状态，就显示pause.png
+      state!="play" 暂停状态，显示play.png
+      通过三元运算来确定是哪个播放按钮
+
+        1、实现播放按钮的切换 在play和pause图片之间进行切换
+        2、实现歌曲的暂停与播放
+        3、实现上一首和下一首歌曲的切换
+     -->
+    <image src="/images/prev.png" bindtap="prev"></image>
+    <image src="/images/{{state=='play'?'pause':'play'}}.png" bindtap="pauseOrplay"></image>
+    <image src="/images/next.png" bindtap="next"></image>
+  </view>
+</view>

@@ -1,0 +1,55 @@
+<!--pages/book/book.wxml-->
+<view class="container">
+  <!-- 服务的图片 -->
+  <view class="ar_coverpath">
+    <image src="/images/banner_02.png" mode="aspectFill"></image>
+  </view>
+
+  <!-- 地址选择模块 -->
+  <view class="ar_picker">
+    <view class="ar_picker_wrap">
+      <!-- 地址选择模块 picker从底部滚动的选择条 bindchange选中触发状态的回调函数 value picker所带的值 -->
+      <picker bindchange="bindAddrPickerChange" value="{{addrIndex}}" range="{{addrArray}}">
+        <view>
+          <!-- 显示地址的内容 -->
+          <text>{{addrArray[addrIndex]}}</text>
+        </view>
+      </picker>
+    </view>
+  </view>
+  
+  <!-- 服务时间的选择 -->
+  <view class="ar_content">
+    <text class="ar_content_h1">服务时间</text>
+    <view class="ar_date_time">
+      <!-- 日期选择模块 -->
+      <view class="ar_date">
+        <image src="/images/date.png"></image>
+        <picker start="2015-09-01" end="2022-06-30" bindchange="bindDatePickerChange" value="{{date}}"  mode="date">
+          <view>
+            <!-- 选择显示的日期 -->
+            <text>{{date}}</text>
+          </view>
+        </picker>
+      </view>
+
+      <!-- 时间选择模块 -->
+      <view class="ar_time">
+        <image src="/images/time.png"></image>
+        <picker start="01:00" end="24:00" bindchange="bindTimePickerChange" value="{{time}}" mode="time">
+          <view>
+            <!-- 选择显示的时间-->
+            <text>{{time}}</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 留言信息 -->
+    <text class="ar_content_h1">留言信息</text>
+    <input type="text" placeholder="输入信息" placeholder-style="font-family:'微软雅黑'" class="input_msg"></input>
+    <button class="ar_book" bindtap="bindToastTap">确认预定</button>
+    <!-- 提示框信息 -->
+    <toast hidden="{{bookToastHidden}}" bindchange="hideToast">预定时间预定成功</toast>
+  </view>
+</view>

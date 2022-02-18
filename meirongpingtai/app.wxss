@@ -1,0 +1,21 @@
+/* page 是应用页面最大的容器 */
+page{
+  display: flex;
+  height: 100%;
+  /* 行内元素垂直排列 */
+  flex-direction: column;
+}
+
+/**app.wxss**/
+/* 共有样式 */
+
+
+/* page-body 滚动条的样式 */
+.page-body{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* 提示与信息样式 */
+

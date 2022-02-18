@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="www.xiyou.dao.AdvertisementDao">
+
+    <resultMap type="www.xiyou.entity.Advertisement" id="AdvertisementMap">
+        <result property="id" column="aid" jdbcType="INTEGER"/>
+        <result property="imageid" column="imageid" jdbcType="INTEGER"/>
+        <result property="foodid" column="foodid" jdbcType="INTEGER"/>
+        <result property="busid" column="busid" jdbcType="INTEGER"/>
+        <result property="adname" column="adname" jdbcType="VARCHAR"/>
+        <result property="adtitle" column="adtitle" jdbcType="VARCHAR"/>
+        <result property="adexplain" column="adexplain" jdbcType="VARCHAR"/>
+        <!--  广告图片  -->
+        <result property="image.imageurl" column="adimageurl"></result>
+        <!--促销食物对象-->
+        <result property="adfood.id" column="fid"></result>
+        <result property="adfood.proprice" column="proprice"></result>
+        <result property="adfood.proname" column="proname"></result>
+        <!--商家对象-->
+        <result property="businesss.id" column="bid"></result>
+        <result property="businesss.busimgid" column="busimgid"></result>
+        <result property="businesss.busname" column="busname"></result>
+        <result property="businesss.bustell" column="bustell"></result>
+        <result property="businesss.image.imageurl" column="busimageurl"></result>
+    </resultMap>
+
+    <!--查询单个-->
+    <!--点击指定行获取广告信息-->
+    <select id="queryById" resultMap="AdvertisementMap">
+        SELECT
+            a.id aid,
+            a.imageid imageid,
+            a.foodid foodid,
+            a.busid busid,
+            a.adname adname,
+            a.adtitle adtitle,
+            a.adexplain adexplain,
+
+            b.id bid,
+            b.busname busname,
+            b.busimgid busimgid,
+            b.bustell bustell,
+
+            f.id fid,
+            f.proprice proprice,
+            f.proname proname,
+
+            busimg.imageurl busimageurl,
+            adimg.imageurl adimageurl
+
+        from businesss b,food f,image busimg, image adimg,advertisement a
+        where f.id = a.foodid
+        and b.id = f.busid
+        and adimg.id = a.imageid
+        and busimg.id = b.busimgid
+        and a.id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <!--分页获取广告信息-->
+    <select id="queryAllByLimit" resultMap="AdvertisementMap">
+        SELECT
+            a.id aid,
+            a.adname adname,
+            a.imageid imageid,
+            a.adtitle adtitle,
+            a.adexplain adexplain,
+
+            b.id bid,
+            b.busname busname,
+            b.busaddress busaddress,
+            b.busexplain busexplain,
+            b.bustell bustell,
+            b.busimgid busimgid,
+
+            f.proprice proprice,
+            f.proexplain proexplain,
+
+            busimg.imageurl busimageurl,
+            adimg.imageurl adimageurl
+        FROM advertisement a, businesss b, image adimg, image busimg, food f
+        WHERE f.id = a.foodid
+        AND b.id = f.busid
+        AND adimg.id = a.imageid
+        AND busimg.id = b.busimgid
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="AdvertisementMap">
+        select
+        id, imageid, foodid, busid, adname
+        from takeaway.advertisement
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="imageid != null">
+                and imageid = #{imageid}
+            </if>
+            <if test="foodid != null">
+                and foodid = #{foodid}
+            </if>
+            <if test="busid != null">
+                and busid = #{busid}
+            </if>
+            <if test="adname != null and adname != ''">
+                and adname = #{adname}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.advertisement(imageid, foodid, busid, adname)
+        values (#{imageid}, #{foodid}, #{busid}, #{adname})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.advertisement(imageid, foodid, busid, adname)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.imageid}, #{entity.foodid}, #{entity.busid}, #{entity.adname})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.advertisement(imageid, foodid, busid, adname)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.imageid}, #{entity.foodid}, #{entity.busid}, #{entity.adname})
+        </foreach>
+        on duplicate key update
+        imageid = values(imageid) , foodid = values(foodid) , busid = values(busid) , adname = values(adname)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update takeaway.advertisement
+        <set>
+            <if test="imageid != null">
+                imageid = #{imageid},
+            </if>
+            <if test="foodid != null">
+                foodid = #{foodid},
+            </if>
+            <if test="busid != null">
+                busid = #{busid},
+            </if>
+            <if test="adname != null and adname != ''">
+                adname = #{adname},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from takeaway.advertisement where id = #{id}
+    </delete>
+
+    <!--queryBusInfoById-->
+    <select id="queryBusInfoById" resultMap="AdvertisementMap">
+        SELECT
+            a.id aid,
+            a.imageid imageid,
+            a.adname adname,
+            a.adtitle adtitle,
+            a.adexplain adexplain,
+            b.id bid,
+            b.busname busname,
+            b.busaddress busaddress,
+            b.busexplain busexplain,
+            b.bustell bustell,
+            b.busimgid busimgid,
+
+            f.id fid,
+            f.proprice proprice,
+            f.proname proname,
+
+            i.imageurl adimageurl
+
+        from advertisement a, businesss b, food f, image i
+        where a.busid = b.id
+        and a.foodid = f.id
+        and a.imageid = i.id
+        and a.id = #{id}
+
+    </select>
+
+    <select id="queryCount" resultType="long">
+        select count(id) from advertisement
+    </select>
+
+</mapper>
+

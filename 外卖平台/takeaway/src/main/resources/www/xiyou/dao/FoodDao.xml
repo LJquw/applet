@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="www.xiyou.dao.FoodDao">
+
+    <resultMap type="www.xiyou.entity.Food" id="FoodMap">
+        <result property="id" column="fid" jdbcType="INTEGER"/>
+        <result property="proexplain" column="proexplain" jdbcType="VARCHAR"/>
+        <result property="proprice" column="proprice" jdbcType="VARCHAR"/>
+        <result property="protypeid" column="protypeid" jdbcType="INTEGER"/>
+        <result property="proname" column="proname" jdbcType="VARCHAR"/>
+        <result property="imageid" column="imageid" jdbcType="INTEGER"/>
+        <result property="prostatus" column="prostatus" jdbcType="VARCHAR"/>
+        <result property="busid" column="busid" jdbcType="INTEGER"/>
+        <result property="material" column="material" jdbcType="VARCHAR"/>
+
+        <!--  图片对象  -->
+        <result property="image.id" column="iid" jdbcType="INTEGER"/>
+        <result property="image.imageurl" column="imageurl"></result>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="FoodMap">
+        select
+            f.id fid,
+            f.proexplain proexplain,
+            f.proprice proprice,
+            f.proname proname,
+            f.protypeid protypeid,
+            f.imageid imageid,
+            f.prostatus prostatus,
+            f.busid busid,
+            f.material material,
+            i.imageurl imageurl,
+            i.id iid
+        from food f,image i
+        where f.imageid = i.id
+        and f.id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="FoodMap">
+        select
+            f.id fid,
+            f.proexplain proexplain,
+            f.proprice proprice,
+            f.protypeid protypeid,
+            f.proname proname,
+            f.imageid imageid,
+            f.prostatus prostatus,
+            f.busid busid,
+            f.material material,
+            i.id iid,
+            i.imageurl imageurl
+        from food f,image i
+        where f.imageid = i.id
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="FoodMap">
+        select
+        fid, proexplain, proprice, protypeid, proname, imageid, prostatus, busid, material
+        from takeaway.food
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="proexplain != null and proexplain != ''">
+                and proexplain = #{proexplain}
+            </if>
+            <if test="proprice != null">
+                and proprice = #{proprice}
+            </if>
+            <if test="protypeid != null">
+                and protypeid = #{protypeid}
+            </if>
+            <if test="proname != null and proname != ''">
+                and proname = #{proname}
+            </if>
+            <if test="imageid != null">
+                and imageid = #{imageid}
+            </if>
+            <if test="prostatus != null and prostatus != ''">
+                and prostatus = #{prostatus}
+            </if>
+            <if test="busid != null">
+                and busid = #{busid}
+            </if>
+            <if test="material != null and material != ''">
+                and material = #{material}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.food(proexplain, proprice, protypeid, proname, imageid, prostatus, busid,material)
+        values (#{proexplain}, #{proprice}, #{protypeid}, #{proname}, #{imageid}, #{prostatus}, #{busid},#{material})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.food(proexplain, proprice, protypeid, proname, imageid, prostatus, busid, material)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.proexplain}, #{entity.proprice}, #{entity.protypeid}, #{entity.proname}, #{entity.imageid},
+            #{entity.prostatus}, #{entity.busid}, #{entity.material})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into takeaway.food(proexplain, proprice, protypeid, proname, imageid, prostatus, busid, material)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.proexplain}, #{entity.proprice}, #{entity.protypeid}, #{entity.proname}, #{entity.imageid},
+            #{entity.prostatus}, #{entity.busid}, #{entity.material})
+        </foreach>
+        on duplicate key update
+        proexplain = values(proexplain) , proprice = values(proprice) , protypeid = values(protypeid) , proname =
+        values(proname) , imageid = values(imageid) , prostatus = values(prostatus) , busid = values(busid) , material=values(material)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update takeaway.food
+        <set>
+            <if test="proexplain != null and proexplain != ''">
+                proexplain = #{proexplain},
+            </if>
+            <if test="proprice != null">
+                proprice = #{proprice},
+            </if>
+            <if test="protypeid != null">
+                protypeid = #{protypeid},
+            </if>
+            <if test="proname != null and proname != ''">
+                proname = #{proname},
+            </if>
+            <if test="imageid != null">
+                imageid = #{imageid},
+            </if>
+            <if test="prostatus != null and prostatus != ''">
+                prostatus = #{prostatus},
+            </if>
+            <if test="busid != null">
+                busid = #{busid},
+            </if>
+            <if test="material != null and material != ''">
+                busid = #{material},
+            </if>
+
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from takeaway.food where id = #{id}
+    </delete>
+
+    <!--queryCount-->
+    <select id="queryCount" resultType="long">
+        select count(id) from food
+    </select>
+
+
+    <!--queryAllByLimitType-->
+    <select id="queryAllByLimitType" resultMap="FoodMap">
+        select
+            f.id fid,
+            f.proexplain proexplain,
+            f.proprice proprice,
+            f.protypeid protypeid,
+            f.proname proname,
+            f.imageid imageid,
+            f.prostatus prostatus,
+            f.busid busid,
+            f.material material,
+            i.id iid,
+            i.imageurl imageurl
+        from food f,image i,recommend r
+        where f.imageid = i.id
+        and f.protypeid = r.id
+        and r.`name` = #{type}
+        limit #{offset}, #{limit}
+    </select>
+
+
+    <!--分类的总条数-->
+    <select id="queryCountByType" resultType="long">
+      select
+        count(f.id)
+      from food f ,recommend r
+      where f.protypeid = r.id
+      and r.`name` = #{type}
+    </select>
+
+    <select id="queryProInfoByKeyword" resultMap="FoodMap">
+       SELECT
+            f.id fid,
+            f.proexplain proexplain,
+            f.proprice proprice,
+            f.protypeid protypeid,
+            f.proname proname,
+            f.imageid imageid,
+            f.prostatus prostatus,
+            f.busid busid,
+            f.material material,
+            i.id iid,
+            i.imageurl imageurl
+        from food f,recommend r,image i
+        where f.protypeid = r.id
+        and f.imageid = i.id
+        and r.`name` = #{param2}
+        and f.proname like #{param1}
+    </select>
+
+</mapper>
+

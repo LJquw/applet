@@ -1,0 +1,21 @@
+<!-- 项目图片部分 -->
+<image class="proImage" src="{{imageUrl+proInfo.image.imageurl}}"></image>
+
+<view class="wapper">
+  <!-- 项目介绍 -->
+  <view class="proInfo">
+    <text class="proname">{{proInfo.proname}}</text>
+    <text class="proprice">价格：￥{{proInfo.proprice}}</text>
+    <view class="proexplain">{{proInfo.proexplain}}</view>
+  </view>
+
+  <!-- 详情描述 -->
+  <view>
+    <view class="miaoshu">主要配料</view>
+    
+    <text user-select="true">{{proInfo.material}}</text>
+  </view>
+</view>
+
+<!-- 立即购买按钮 -->
+<button style="width:90%" bindtap="goumai" data-id="{{proInfo.id}}">立即购买</button>
